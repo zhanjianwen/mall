@@ -1,6 +1,0 @@
-{
-  // 关掉装饰器的错误提示
-  "compilerOptions": {
-      "experimentalDecorators": true
-  }
-}
