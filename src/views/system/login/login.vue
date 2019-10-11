@@ -1,9 +1,13 @@
 <template>
   <div>
+    <login-component></login-component>
     <van-button style="height: 30px;line-height: 30px;" @click="handleLogOut" type="primary">login</van-button>
   </div>
 </template>
 <script lang="ts">
+  import {
+    loginComponent
+  } from '@Components/login/login.vue';
   import {
     Component,
     Vue,
@@ -15,6 +19,7 @@
     name: 'Login',
     components: {
       [Button.name]: Button,
+      loginComponent: loginComponent
     },
   })
   export default class extends Vue {
