@@ -11,7 +11,7 @@ module.exports = {
     configureWebpack: config => {
     },
     parallel: false,
-    outputDir: '../docs',
+    outputDir: 'dist',
     publicPath: process.env.NODE_ENV === 'production' ? '/mall/' : '/',
     chainWebpack: config => {
       config.module
