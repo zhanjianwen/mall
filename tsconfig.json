@@ -17,12 +17,6 @@
     "paths": {
       "@/*": [
         "src/*"
-      ],
-      "@Components/*": [
-        "src/components/*"
-      ],
-      "@Views": [
-        "src/views"
       ]
     },
     "lib": [
