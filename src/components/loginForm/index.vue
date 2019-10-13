@@ -1,12 +1,19 @@
 <template>
   <div class="login-from">
     <van-cell-group>
-      <van-field v-model="value.userName" label="用户名" placeholder="请输入用户名" />
-      <van-field v-model="value.passWord" label="手机号" placeholder="请输入密码" />
+      <van-field v-model="value.userName" required clearable label="用户名" right-icon="question-o" placeholder="请输入用户名"
+        @click-right-icon="$toast('question')" />
+      <van-field v-model="value.userPwd" type="password" label="密码" placeholder="请输入密码" required />
     </van-cell-group>
     <!-- <div>登录模板</div> -->
   </div>
 </template>
+<style lang="stylus">
+  
+  .login-from .van-cell--required::before {
+    left: 0.7rem;
+  }
+</style>
 <script lang="ts">
   import {
     Component,

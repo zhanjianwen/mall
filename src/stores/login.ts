@@ -4,12 +4,12 @@ export interface ILoginState {
   // 用户名
   userName: string;
   // 用户密码
-  passWord: string ;
+  userPwd: string ;
 }
 @Module({ dynamic: true, store, name: 'user' })
 class Login extends VuexModule implements ILoginState {
   public userName = 'zjw';
-  public passWord = '123';
+  public userPwd = '123';
   get getUserInfo() {
     console.log(this.userName);
     return '';

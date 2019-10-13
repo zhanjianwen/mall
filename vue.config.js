@@ -12,7 +12,7 @@ module.exports = {
     },
     parallel: false,
     outputDir: 'dist',
-    publicPath: process.env.NODE_ENV === 'production' ? '/mall/' : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
     chainWebpack: config => {
       config.module
         .rule('ts')
@@ -35,15 +35,22 @@ module.exports = {
           });
           return options;
         });
-    }
-    // devServer: {
-    //   // 配置代理
-    //   proxy: {
-    //     '/api': {
-    //       ws: false,   // 禁用websocket
-    //       target: 'http://127.0.0.1:8848/',
-    //       changeOrigin: true,
-    //     }
-    //   }
-    // },
+    },
+    devServer: {
+      // 配置代理
+      proxy: {
+        '/member/*': {
+          target: 'http://xmall.exrick.cn/',
+          changeOrigin: true,
+        }
+      }
+      // proxy: {
+      //   '/member/*': {
+      //     target: 'http://127.0.0.1:7777' // 请求本地 需要xmall后台项目 默认127.0.0.1:7777 
+      //   },
+      //   '/goods/*': {
+      //     target: 'http://127.0.0.1:7777' // 请求本地 需要xmall后台项目 默认127.0.0.1:7777
+      //   }
+      // }
+    },
   }
