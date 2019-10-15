@@ -39,14 +39,14 @@ module.exports = {
     devServer: {
       // 配置代理
       proxy: {
-        '/xmall': {
+        '/api': {
           target: 'http://xmall.exrick.cn/',
           changeOrigin: true,
-          pathRewrite:{
-            '^xmall':'/'
+          pathRewrite: {
+            '^/api': '/'
           }
-        }
       }
+    }
       // proxy: {
       //   '/member/*': {
       //     target: 'http://127.0.0.1:7777' // 请求本地 需要xmall后台项目 默认127.0.0.1:7777 

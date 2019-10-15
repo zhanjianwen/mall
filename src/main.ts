@@ -7,7 +7,9 @@ import moment from 'moment';
 import _ from 'lodash';
 import 'amfe-flexible';
 import { Toast } from 'vant';
+import '../static/geetest/gt';
 Vue.use(Toast);
+
 // import FastClick from 'fastclick';
 // FastClick['attach'](document.body);
 declare module 'vue/types/vue' {

@@ -5,6 +5,9 @@
       <h4>使用 XMall 账号 登录官网</h4>
     </div>
     <login-form v-model="userInfos"></login-form>
+    <div id="captcha">
+      <p id="wait">正在加载验证码...</p>
+    </div>
     <van-button class="login-button" style="width: 80%;" @click=" handleLogin" type="primary">登录
     </van-button>
   </div>
@@ -49,6 +52,12 @@
   }
 </style>
 <script lang="ts">
+  let captcha;
+  import {
+    setStore,
+    getStore,
+    removeStore,
+  } from '@/utils/storage.ts';
   import loginForm from '@/components/loginForm/index.vue';
   import {
     Component,
@@ -68,14 +77,68 @@
     private userInfos = {
       userName: 'test',
       userPwd: 'test',
-      challenge: '298bd97020a506a4eb1273f8724462b7cx',
+      challenge: '',
       seccode: 'e2e29827e20bb27586f6eb10a1f651aa|jordan',
-      statusKey: 'e771b02c-656c-4676-ab2e-44c90ca5b2f7',
+      statusKey: '',
       validate: 'e2e29827e20bb27586f6eb10a1f651aa',
     };
+    // private statusKey = '';
+    private mounted() {
+      this.getTest();
+    }
     private handleLogin() {
-      this.$api.system.postLogin(this.userInfos).then((req: any) => {
-        console.log(req);
+      this.$api.system.postLogin(this.userInfos).then((res: any) => {
+        console.log(res);
+        // debugger
+        // if (res.result.state === 1) {
+        //   setStore('token', res.result.token)
+        //   setStore('userId', res.result.id)
+        //   // 登录后添加当前缓存中的购物车
+        //   if (this.cart.length) {
+        //     for (var i = 0; i < this.cart.length; i++) {
+        //       addCart(this.cart[i]).then(res => {
+        //         if (res.success === true) {}
+        //       })
+        //     }
+        //     removeStore('buyCart')
+        //     this.$router.push({
+        //       path: '/'
+        //     })
+        //   } else {
+        //     this.$router.push({
+        //       path: '/'
+        //     })
+        //   }
+        // } else {
+        //   this.logintxt = '登录'
+        //   this.message(res.result.message)
+        //   captcha.reset()
+        //   return false
+        // }
+      });
+    }
+    private getTest() {
+      this.$api.system.getTest(this.userInfos).then((res: any) => {
+        console.log(res);
+        this.userInfos.statusKey = res.statusKey;
+        this.userInfos.challenge = res.challenge;
+        (window as any).initGeetest({
+          gt: res.gt,
+          challenge: res.challenge,
+          new_captcha: res.new_captcha,
+          offline: !res.success,
+          product: 'popup',
+          width: '100%',
+        }, (captchaObj: any) => {
+          if (!captchaObj) {
+            return;
+          }
+          captcha = captchaObj;
+          captchaObj.appendTo('#captcha');
+          captchaObj.onReady(() => {
+            (window as any).document.getElementById('wait').style.display = 'none';
+          });
+        });
       });
     }
   }

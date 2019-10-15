@@ -5,9 +5,9 @@ import qs from 'qs';
 axios.interceptors.request.use((config) => {
   config.headers = {
     'Content-Type': 'application/json;charset=utf-8',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
-    'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type',
+    // 'Access-Control-Allow-Origin': '*',
+    // 'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+    // 'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type',
   };
   console.log(config);
   return config;
