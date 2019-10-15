@@ -4,12 +4,10 @@ import qs from 'qs';
 // axios.defaults.baseURL='http://xmall.exrick.cn';
 axios.interceptors.request.use((config) => {
   config.headers = {
-    'host': 'xmall.exrick.cn',
-    'referer': 'http://xmall.exrick.cn/',
     'Content-Type': 'application/json;charset=utf-8',
-    // 'Access-Control-Allow-Origin': '*',
-    // 'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
-    // 'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+    'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type',
   };
   console.log(config);
   return config;

@@ -39,9 +39,12 @@ module.exports = {
     devServer: {
       // 配置代理
       proxy: {
-        '/member/*': {
+        '/xmall': {
           target: 'http://xmall.exrick.cn/',
           changeOrigin: true,
+          pathRewrite:{
+            '^xmall':'/'
+          }
         }
       }
       // proxy: {
