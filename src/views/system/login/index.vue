@@ -82,46 +82,85 @@
       statusKey: '',
       validate: 'e2e29827e20bb27586f6eb10a1f651aa',
     };
+    private logintxt = '登录';
+    private cart = [];
+    private autoLogin = false
     // private statusKey = '';
     private mounted() {
       this.getTest();
+      this.getRemembered();
+      this.login_addCart();
+    }
+    private getRemembered(){
+      let judge = getStore('remember')
+      if (judge === 'true') {
+        this.autoLogin = true;
+        this.userInfos.userName = getStore('rusername');
+        this.userInfos.userPwd = getStore('rpassword');
+      }
+    }
+    private rememberPass() {
+      if (this.autoLogin === true) {
+        setStore('remember', 'true')
+        setStore('rusername', this.userInfos.userName)
+        setStore('rpassword', this.userInfos.userPwd)
+      } else {
+        setStore('remember', 'false')
+        removeStore('rusername')
+        removeStore('rpassword')
+      }
     }
     private handleLogin() {
+      this.logintxt = '登录中...'
+      this.rememberPass()
+      if (!this.userInfos.userName || !this.userInfos.userPwd) {
+        console.log(账号或者密码不能为空)
+        return false
+      }
+      let result = captcha.getValidate()
+      if (!result) {
+        this.message('请完成验证')
+        this.logintxt = '登录'
+        return false
+      }
+      console.log(result)
+      this.userInfos.challenge = result.geetest_challenge;
+      this.userInfos.validate = result.geetest_validate;
+      this.userInfos.seccode = result.geetest_seccode;
       this.$api.system.postLogin(this.userInfos).then((res: any) => {
         console.log(res);
-        // debugger
-        // if (res.result.state === 1) {
-        //   setStore('token', res.result.token)
-        //   setStore('userId', res.result.id)
-        //   // 登录后添加当前缓存中的购物车
-        //   if (this.cart.length) {
-        //     for (var i = 0; i < this.cart.length; i++) {
-        //       addCart(this.cart[i]).then(res => {
-        //         if (res.success === true) {}
-        //       })
-        //     }
-        //     removeStore('buyCart')
-        //     this.$router.push({
-        //       path: '/'
-        //     })
-        //   } else {
-        //     this.$router.push({
-        //       path: '/'
-        //     })
-        //   }
-        // } else {
-        //   this.logintxt = '登录'
-        //   this.message(res.result.message)
-        //   captcha.reset()
-        //   return false
-        // }
+        if (res.result.state === 1) {
+          setStore('token', res.result.token)
+          setStore('userId', res.result.id)
+          // 登录后添加当前缓存中的购物车
+          if (this.cart.length) {
+            for (var i = 0; i < this.cart.length; i++) {
+              addCart(this.cart[i]).then(res => {
+                if (res.success === true) {}
+              })
+            }
+            removeStore('buyCart')
+            this.$router.push({
+              path: '/'
+            })
+          } else {
+            this.$router.push({
+              path: '/'
+            })
+          }
+        } else {
+          this.logintxt = '登录'
+          console.log(res.result.message)
+          // this.message(res.result.message)
+          captcha.reset()
+          return false
+        }
       });
     }
     private getTest() {
       this.$api.system.getTest(this.userInfos).then((res: any) => {
         console.log(res);
         this.userInfos.statusKey = res.statusKey;
-        this.userInfos.challenge = res.challenge;
         (window as any).initGeetest({
           gt: res.gt,
           challenge: res.challenge,
@@ -140,6 +179,24 @@
           });
         });
       });
+    }
+    private login_back() {
+      this.$router.go(-1)
+    }
+    // 登陆时将本地的添加到用户购物车
+    private login_addCart() {
+      let cartArr = []
+      let locaCart = JSON.parse(getStore('buyCart'))
+      if (locaCart && locaCart.length) {
+        locaCart.forEach(item => {
+          cartArr.push({
+            userId: getStore('userId'),
+            productId: item.productId,
+            productNum: item.productNum
+          })
+        })
+      }
+      this.cart = cartArr
     }
   }
 </script>
