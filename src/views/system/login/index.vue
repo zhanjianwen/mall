@@ -84,15 +84,14 @@
     };
     private logintxt = '登录';
     private cart = [];
-    private autoLogin = false
-    // private statusKey = '';
+    private autoLogin = false;
     private mounted() {
       this.getTest();
       this.getRemembered();
       this.login_addCart();
     }
-    private getRemembered(){
-      let judge = getStore('remember')
+    private getRemembered() {
+      let judge = getStore('remember');
       if (judge === 'true') {
         this.autoLogin = true;
         this.userInfos.userName = getStore('rusername');
@@ -101,45 +100,47 @@
     }
     private rememberPass() {
       if (this.autoLogin === true) {
-        setStore('remember', 'true')
-        setStore('rusername', this.userInfos.userName)
-        setStore('rpassword', this.userInfos.userPwd)
+        setStore('remember', 'true');
+        setStore('rusername', this.userInfos.userName);
+        setStore('rpassword', this.userInfos.userPwd);
       } else {
-        setStore('remember', 'false')
-        removeStore('rusername')
-        removeStore('rpassword')
+        setStore('remember', 'false');
+        removeStore('rusername');
+        removeStore('rpassword');
       }
     }
     private handleLogin() {
-      this.logintxt = '登录中...'
-      this.rememberPass()
+      this.logintxt = '登录中...';
+      this.rememberPass();
       if (!this.userInfos.userName || !this.userInfos.userPwd) {
-        console.log(账号或者密码不能为空)
-        return false
+        console.log(账号或者密码不能为空);
+        return false;
       }
-      let result = captcha.getValidate()
+      let result = captcha.getValidate();
       if (!result) {
-        this.message('请完成验证')
-        this.logintxt = '登录'
-        return false
+        this.message('请完成验证');
+        this.logintxt = '登录';
+        return false;
       }
-      console.log(result)
+      console.log(result);
       this.userInfos.challenge = result.geetest_challenge;
       this.userInfos.validate = result.geetest_validate;
       this.userInfos.seccode = result.geetest_seccode;
       this.$api.system.postLogin(this.userInfos).then((res: any) => {
         console.log(res);
         if (res.result.state === 1) {
-          setStore('token', res.result.token)
-          setStore('userId', res.result.id)
+          setStore('token', res.result.token);
+          setStore('userId', res.result.id);
           // 登录后添加当前缓存中的购物车
           if (this.cart.length) {
             for (var i = 0; i < this.cart.length; i++) {
-              addCart(this.cart[i]).then(res => {
-                if (res.success === true) {}
+              addCart(this.cart[i]).then((res: any) => {
+                if (res.success === true) {
+
+                };
               })
             }
-            removeStore('buyCart')
+            removeStore('buyCart');
             this.$router.push({
               path: '/'
             })
@@ -149,11 +150,11 @@
             })
           }
         } else {
-          this.logintxt = '登录'
-          console.log(res.result.message)
+          this.logintxt = '登录';
+          console.log(res.result.message);
           // this.message(res.result.message)
-          captcha.reset()
-          return false
+          captcha.reset();
+          return false;
         }
       });
     }
@@ -181,22 +182,22 @@
       });
     }
     private login_back() {
-      this.$router.go(-1)
+      this.$router.go(-1);
     }
     // 登陆时将本地的添加到用户购物车
     private login_addCart() {
-      let cartArr = []
-      let locaCart = JSON.parse(getStore('buyCart'))
+      let cartArr: any = [];
+      let locaCart = JSON.parse(getStore('buyCart'));
       if (locaCart && locaCart.length) {
-        locaCart.forEach(item => {
+        locaCart.forEach((item: any) => {
           cartArr.push({
             userId: getStore('userId'),
             productId: item.productId,
-            productNum: item.productNum
+            productNum: item.productNum,
           })
         })
       }
-      this.cart = cartArr
+      this.cart = cartArr;
     }
   }
 </script>
