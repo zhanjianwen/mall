@@ -4,7 +4,7 @@
       <div class="login-title">
         <h4>使用 XMall 账号 登录官网</h4>
       </div>
-      <login-form @submit="handleLogin" v-model="userInfos"></login-form>
+      <login-form @submit="handleLogin" :logintxt="logintxt" v-model="userInfos"></login-form>
     </van-skeleton>
   </div>
 </template>
@@ -49,7 +49,6 @@
   }
 </style>
 <script lang="ts">
-  let captcha;
   import {
     setStore,
     getStore,
@@ -61,7 +60,7 @@
     Vue,
   } from 'vue-property-decorator';
   import {
-    Skeleton
+    Skeleton,
   } from 'vant';
   @Component({
     name: 'Login',
@@ -78,25 +77,30 @@
       seccode: 'e2e29827e20bb27586f6eb10a1f651aa|jordan',
       statusKey: '',
       validate: 'e2e29827e20bb27586f6eb10a1f651aa',
-      autoLogin: false
+      autoLogin: false,
     };
+    private captcha: any;
     private loading = true;
     private logintxt = '登录';
-    private cart = [];
+    private cart = [{
+      a: 1,
+    }];
     private mounted() {
       setTimeout(() => {
         this.loading = false;
-      }, 300)
+      }, 300);
       this.getTest();
       this.getRemembered();
       this.login_addCart();
     }
     private getRemembered() {
-      let judge = getStore('remember');
+      const judge = getStore('remember');
       if (judge === 'true') {
         this.userInfos.autoLogin = true;
-        this.userInfos.userName = getStore('rusername');
-        this.userInfos.userPwd = getStore('rpassword');
+        const rusername: any = getStore('rusername');
+        const rpassword: any = getStore('rusername');
+        this.userInfos.userName = rusername;
+        this.userInfos.userPwd = rpassword;
       }
     }
     private rememberPass() {
@@ -111,14 +115,15 @@
       }
     }
     private handleLogin() {
-      this.logintxt = '登录中...';
-      this.rememberPass();
-      if (!this.userInfos.userName || !this.userInfos.userPwd) {
+      const __SELF = this;
+      __SELF.logintxt = '登录中...';
+      __SELF.rememberPass();
+      if (!__SELF.userInfos.userName || !__SELF.userInfos.userPwd) {
         return false;
       }
-      let result = captcha.getValidate();
+      const result = __SELF.captcha.getValidate();
       if (!result) {
-        this.message('请完成验证');
+        console.log('请完成验证');
         this.logintxt = '登录';
         return false;
       }
@@ -130,27 +135,27 @@
           setStore('token', res.result.token);
           setStore('userId', res.result.id);
           // 登录后添加当前缓存中的购物车
+          debugger
           if (this.cart.length) {
-            for (var i = 0; i < this.cart.length; i++) {
-              addCart(this.cart[i]).then((res: any) => {
+            for (const cart of this.cart) {
+              this.$api.good.postAddCart(cart).then((res: any) => {
                 if (res.success === true) {
-
-                };
-              })
+                  console.log(1);
+                }
+              });
             }
             removeStore('buyCart');
             this.$router.push({
-              path: '/'
-            })
+              path: '/',
+            });
           } else {
             this.$router.push({
-              path: '/'
-            })
+              path: '/',
+            });
           }
         } else {
           this.logintxt = '登录';
-          // this.message(res.result.message)
-          captcha.reset();
+          this.captcha.reset();
           return false;
         }
       });
@@ -169,7 +174,7 @@
           if (!captchaObj) {
             return;
           }
-          captcha = captchaObj;
+          this.captcha = captchaObj;
           captchaObj.appendTo('#captcha');
           captchaObj.onReady(() => {
             (window as any).document.getElementById('wait').style.display = 'none';
@@ -182,16 +187,16 @@
     }
     // 登陆时将本地的添加到用户购物车
     private login_addCart() {
-      let cartArr: any = [];
-      let locaCart = JSON.parse(getStore('buyCart'));
+      const cartArr: any = [];
+      const locaCart = (JSON as any).parse(getStore('buyCart'));
       if (locaCart && locaCart.length) {
         locaCart.forEach((item: any) => {
           cartArr.push({
             userId: getStore('userId'),
             productId: item.productId,
             productNum: item.productNum,
-          })
-        })
+          });
+        });
       }
       this.cart = cartArr;
     }

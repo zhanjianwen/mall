@@ -14,7 +14,7 @@
       <a class="login-register" @click="toRegister">注册 XMall 账号</a>
       <a class="login-forgetPwd" @click="$notify('找回密码','请联系作者邮箱找回密码或使用测试账号登录：test | test')">忘记密码 ?</a>
     </div>
-    <van-button class="login-button" style="width: 100%" @click="handleLogin" type="primary">登录
+    <van-button class="login-button" style="width: 100%" @click="handleLogin" type="primary">{{logintxt}}
     </van-button>
     <!-- <div>登录模板</div> -->
   </div>
@@ -62,7 +62,7 @@
     Field,
     Cell,
     Button,
-    Checkbox
+    Checkbox,
   } from 'vant';
   @Component({
     name: 'login-from',
@@ -76,13 +76,14 @@
   })
   export default class extends Vue {
     @Prop() private value!: object;
+    @Prop() private logintxt!: string;
     private handleLogin() {
-      this.$emit('submit')
+      this.$emit('submit');
     }
     private toRegister() {
       this.$router.push({
-        path: '/register'
-      })
+        path: '/register',
+      });
     }
   }
 </script>

@@ -6,7 +6,7 @@ import api from './apis/index';
 import moment from 'moment';
 import _ from 'lodash';
 import 'amfe-flexible';
-import { Toast,Notify } from 'vant';
+import { Toast, Notify } from 'vant';
 import '../static/geetest/gt';
 Vue.use(Toast);
 Vue.use(Notify);

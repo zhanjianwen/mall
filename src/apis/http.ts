@@ -60,7 +60,7 @@ const post: any = (url: any, data: any, options: any) => {
       data[d] = moment(data[d]).format('YYYY-MM-DD HH:mm:ss');
     }
   }
-  return ajax(url,data, 'post', options);
+  return ajax(url, data, 'post', options);
 };
 
 export default {
