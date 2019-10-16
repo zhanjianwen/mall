@@ -69,7 +69,7 @@
       [Skeleton.name]: Skeleton,
     },
   })
-  export default class extends Vue {
+  export default class Login  extends Vue {
     private userInfos = {
       userName: 'test',
       userPwd: 'test',
