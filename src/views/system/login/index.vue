@@ -86,7 +86,7 @@
       a: 1,
     }];
     private mounted() {
-      let __SELF = this;
+      const __SELF = this;
       setTimeout(() => {
         __SELF.loading = false;
       }, 300);
@@ -95,7 +95,7 @@
       __SELF.login_addCart();
     }
     private getRemembered() {
-      let __SELF = this;
+      const __SELF = this;
       const judge = getStore('remember');
       if (judge === 'true') {
         __SELF.userInfos.autoLogin = true;
@@ -106,7 +106,7 @@
       }
     }
     private rememberPass() {
-      let __SELF = this;
+      const __SELF = this;
       if (__SELF.userInfos.autoLogin === true) {
         setStore('remember', 'true');
         setStore('rusername', __SELF.userInfos.userName);
@@ -130,14 +130,14 @@
         __SELF.logintxt = '登录';
         return false;
       }
-      let params = {
+      const params = {
         userName: __SELF.userInfos.userName,
         userPwd: __SELF.userInfos.userPwd,
         statusKey: __SELF.userInfos.statusKey,
         challenge: result.geetest_challenge,
         seccode: result.geetest_seccode,
         validate: result.geetest_validate,
-      }
+      };
       __SELF.$api.system.postLogin(params).then((res: any) => {
         if (res.result.state === 1) {
           setStore('token', res.result.token);
@@ -145,8 +145,8 @@
           // 登录后添加当前缓存中的购物车
           if (__SELF.cart.length) {
             for (const cart of __SELF.cart) {
-              __SELF.$api.good.postAddCart(cart).then((res: any) => {
-                if (res.success === true) {
+              __SELF.$api.good.postAddCart(cart).then((resCart: any) => {
+                if (resCart.success === true) {
                   console.log(1);
                 }
               });
@@ -168,7 +168,7 @@
       });
     }
     private getTest() {
-      let __SELF = this;
+      const __SELF = this;
       __SELF.$api.system.getTest(__SELF.userInfos).then((res: any) => {
         __SELF.userInfos.statusKey = res.statusKey;
         (window as any).initGeetest({
@@ -191,12 +191,12 @@
       });
     }
     private login_back() {
-      let __SELF = this;
+      const __SELF = this;
       __SELF.$router.go(-1);
     }
     // 登陆时将本地的添加到用户购物车
     private login_addCart() {
-      let __SELF = this;
+      const __SELF = this;
       const cartArr: any = [];
       const locaCart = (JSON as any).parse(getStore('buyCart'));
       if (locaCart && locaCart.length) {

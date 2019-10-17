@@ -7,7 +7,7 @@
 <script lang="ts">
   import {
     Component,
-    Vue
+    Vue,
   } from 'vue-property-decorator';
   @Component({
     name: 'home',
