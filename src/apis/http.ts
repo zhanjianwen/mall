@@ -1,7 +1,10 @@
 import axios from 'axios';
 import moment from 'moment';
+import NProgress from 'nprogress';
 // import qs from 'qs';
 // axios.defaults.baseURL='http://xmall.exrick.cn';
+NProgress.configure({ showSpinner: false });
+NProgress.configure({ parent: '#app' });
 axios.interceptors.request.use((config) => {
   config.headers = {
     'Content-Type': 'application/json;charset=utf-8',
@@ -12,6 +15,7 @@ axios.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 axios.interceptors.response.use((response) => {
+  NProgress.done();
   if (response.status === 200) {
     return response.data;
   } else {
@@ -20,7 +24,7 @@ axios.interceptors.response.use((response) => {
 }, (error) => {
   return Promise.reject(error);
 });
-const ajax: any = (url: any, data: any, method: any, options: any) => {
+const ajax: any = (url: any, data: any, method: any, options: any, nprogress: any) => {
   if (options === undefined) {
     options = {};
   }
@@ -28,6 +32,10 @@ const ajax: any = (url: any, data: any, method: any, options: any) => {
   options.data = data;
   options.method = method;
   options.withCredentials = true;
+  options.nprogress = nprogress;
+  if (options.nprogress && options.nprogress.NProgress) {
+    NProgress.start();
+  }
   return axios(options).catch((error) => {
     return {
       data: {
@@ -40,15 +48,15 @@ const ajax: any = (url: any, data: any, method: any, options: any) => {
     return response;
   });
 };
-const get: any = (url: any, options: any) => {
+const get: any = (url: any, options: any, nprogress: any) => {
   if (options === undefined) {
     options = {};
   }
   return ajax(url, options.data !== undefined ? {
     data: options.data,
-  } : '', 'get', options);
+  } : '', 'get', options, nprogress);
 };
-const post: any = (url: any, data: any, options: any) => {
+const post: any = (url: any, data: any, options: any, nprogress: any) => {
   if (options === undefined) {
     options = {};
   }
@@ -57,7 +65,7 @@ const post: any = (url: any, data: any, options: any) => {
       data[d] = moment(data[d]).format('YYYY-MM-DD HH:mm:ss');
     }
   }
-  return ajax(url, data, 'post', options);
+  return ajax(url, data, 'post', options, nprogress);
 };
 
 export default {

@@ -10,7 +10,7 @@ import { Toast, Notify } from 'vant';
 import '../static/geetest/gt';
 Vue.use(Toast);
 Vue.use(Notify);
-
+import 'nprogress/nprogress.css';
 // import FastClick from 'fastclick';
 // FastClick['attach'](document.body);
 declare module 'vue/types/vue' {

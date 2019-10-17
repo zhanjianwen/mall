@@ -1,11 +1,9 @@
 <template>
   <div class="login">
-    <van-skeleton :row="3" :loading="loading">
-      <div class="login-title">
-        <h4>使用 XMall 账号 登录官网</h4>
-      </div>
-      <login-form @submit="handleLogin" :logintxt="logintxt" v-model="userInfos"></login-form>
-    </van-skeleton>
+    <div class="login-title">
+      <h4>使用 XMall 账号 登录官网</h4>
+    </div>
+    <login-form @submit="handleLogin" :logintxt="logintxt" v-model="userInfos"></login-form>
   </div>
 </template>
 <style scoped lang="stylus">
@@ -59,14 +57,10 @@
     Component,
     Vue,
   } from 'vue-property-decorator';
-  import {
-    Skeleton,
-  } from 'vant';
   @Component({
     name: 'login',
     components: {
       loginForm,
-      [Skeleton.name]: Skeleton,
     },
   })
   export default class Login extends Vue {
@@ -135,6 +129,7 @@
         challenge: result.geetest_challenge,
         seccode: result.geetest_seccode,
         validate: result.geetest_validate,
+        nprogress: true,
       };
       __SELF.$api.system.postLogin(params).then((res: any) => {
         if (res.result.state === 1) {

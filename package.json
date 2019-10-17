@@ -16,6 +16,7 @@
     "core-js": "^2.6.5",
     "fastclick": "^1.0.6",
     "moment": "^2.24.0",
+    "nprogress": "^0.2.0",
     "postcss-px2rem": "^0.3.0",
     "qs": "^6.9.0",
     "ts-import-plugin": "^1.6.1",
