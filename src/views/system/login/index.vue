@@ -54,7 +54,7 @@
     getStore,
     removeStore,
   } from '@/utils/storage.ts';
-  import loginForm from '@/components/loginForm/index.vue';
+  import loginForm from '@/components/loginForm.vue';
   import {
     Component,
     Vue,
@@ -63,7 +63,7 @@
     Skeleton,
   } from 'vant';
   @Component({
-    name: 'Login',
+    name: 'login',
     components: {
       loginForm,
       [Skeleton.name]: Skeleton,

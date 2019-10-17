@@ -10,7 +10,7 @@
     Divider,
   } from 'vant';
   @Component({
-    name: 'login-from',
+    name: 'divider',
     components: {
       [Divider.name]: Divider,
     },

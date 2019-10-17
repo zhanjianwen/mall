@@ -10,7 +10,7 @@
     Vue
   } from 'vue-property-decorator';
   @Component({
-    name: 'Home',
+    name: 'home',
     components: {},
   })
   export default class extends Vue {}

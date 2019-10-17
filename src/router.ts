@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'home',
       meta: {
         title: 'Mall',
       },
@@ -21,19 +21,11 @@ export default new Router({
       component: () => import('@/views/system/login/index.vue'),
     }, {
       path: '/register',
-      name: 'Register',
+      name: 'register',
       meta: {
         title: '注册',
       },
       component: () => import('@/views/system/register/index.vue'),
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (about.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
-    // },
   ],
 });

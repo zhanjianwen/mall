@@ -8,7 +8,7 @@
     Vue,
   } from 'vue-property-decorator';
   @Component({
-    name: 'Register',
+    name: 'register',
     components: {}
   })
   export default class extends Vue {
