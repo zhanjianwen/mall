@@ -69,7 +69,7 @@
       [Skeleton.name]: Skeleton,
     },
   })
-  export default class Login  extends Vue {
+  export default class Login extends Vue {
     private userInfos = {
       userName: 'test',
       userPwd: 'test',
@@ -86,28 +86,31 @@
       a: 1,
     }];
     private mounted() {
+      let __SELF = this;
       setTimeout(() => {
-        this.loading = false;
+        __SELF.loading = false;
       }, 300);
-      this.getTest();
-      this.getRemembered();
-      this.login_addCart();
+      __SELF.getTest();
+      __SELF.getRemembered();
+      __SELF.login_addCart();
     }
     private getRemembered() {
+      let __SELF = this;
       const judge = getStore('remember');
       if (judge === 'true') {
-        this.userInfos.autoLogin = true;
+        __SELF.userInfos.autoLogin = true;
         const rusername: any = getStore('rusername');
         const rpassword: any = getStore('rusername');
-        this.userInfos.userName = rusername;
-        this.userInfos.userPwd = rpassword;
+        __SELF.userInfos.userName = rusername;
+        __SELF.userInfos.userPwd = rpassword;
       }
     }
     private rememberPass() {
-      if (this.userInfos.autoLogin === true) {
+      let __SELF = this;
+      if (__SELF.userInfos.autoLogin === true) {
         setStore('remember', 'true');
-        setStore('rusername', this.userInfos.userName);
-        setStore('rpassword', this.userInfos.userPwd);
+        setStore('rusername', __SELF.userInfos.userName);
+        setStore('rpassword', __SELF.userInfos.userPwd);
       } else {
         setStore('remember', 'false');
         removeStore('rusername');
@@ -124,45 +127,50 @@
       const result = __SELF.captcha.getValidate();
       if (!result) {
         console.log('请完成验证');
-        this.logintxt = '登录';
+        __SELF.logintxt = '登录';
         return false;
       }
-      this.userInfos.challenge = result.geetest_challenge;
-      this.userInfos.validate = result.geetest_validate;
-      this.userInfos.seccode = result.geetest_seccode;
-      this.$api.system.postLogin(this.userInfos).then((res: any) => {
+      let params = {
+        userName: __SELF.userInfos.userName,
+        userPwd: __SELF.userInfos.userPwd,
+        statusKey: __SELF.userInfos.statusKey,
+        challenge: result.geetest_challenge,
+        seccode: result.geetest_seccode,
+        validate: result.geetest_validate,
+      }
+      __SELF.$api.system.postLogin(params).then((res: any) => {
         if (res.result.state === 1) {
           setStore('token', res.result.token);
           setStore('userId', res.result.id);
           // 登录后添加当前缓存中的购物车
-          debugger
-          if (this.cart.length) {
-            for (const cart of this.cart) {
-              this.$api.good.postAddCart(cart).then((res: any) => {
+          if (__SELF.cart.length) {
+            for (const cart of __SELF.cart) {
+              __SELF.$api.good.postAddCart(cart).then((res: any) => {
                 if (res.success === true) {
                   console.log(1);
                 }
               });
             }
             removeStore('buyCart');
-            this.$router.push({
+            __SELF.$router.push({
               path: '/',
             });
           } else {
-            this.$router.push({
+            __SELF.$router.push({
               path: '/',
             });
           }
         } else {
-          this.logintxt = '登录';
-          this.captcha.reset();
+          __SELF.logintxt = '登录';
+          __SELF.captcha.reset();
           return false;
         }
       });
     }
     private getTest() {
-      this.$api.system.getTest(this.userInfos).then((res: any) => {
-        this.userInfos.statusKey = res.statusKey;
+      let __SELF = this;
+      __SELF.$api.system.getTest(__SELF.userInfos).then((res: any) => {
+        __SELF.userInfos.statusKey = res.statusKey;
         (window as any).initGeetest({
           gt: res.gt,
           challenge: res.challenge,
@@ -174,7 +182,7 @@
           if (!captchaObj) {
             return;
           }
-          this.captcha = captchaObj;
+          __SELF.captcha = captchaObj;
           captchaObj.appendTo('#captcha');
           captchaObj.onReady(() => {
             (window as any).document.getElementById('wait').style.display = 'none';
@@ -183,10 +191,12 @@
       });
     }
     private login_back() {
-      this.$router.go(-1);
+      let __SELF = this;
+      __SELF.$router.go(-1);
     }
     // 登陆时将本地的添加到用户购物车
     private login_addCart() {
+      let __SELF = this;
       const cartArr: any = [];
       const locaCart = (JSON as any).parse(getStore('buyCart'));
       if (locaCart && locaCart.length) {
@@ -198,7 +208,7 @@
           });
         });
       }
-      this.cart = cartArr;
+      __SELF.cart = cartArr;
     }
   }
 </script>

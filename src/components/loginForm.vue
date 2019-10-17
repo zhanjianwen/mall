@@ -78,10 +78,12 @@
     @Prop() private value!: object;
     @Prop() private logintxt!: string;
     private handleLogin() {
-      this.$emit('submit');
+      let __SELF = this;
+      __SELF.$emit('submit');
     }
     private toRegister() {
-      this.$router.push({
+      let __SELF = this;
+      __SELF.$router.push({
         path: '/register',
       });
     }
