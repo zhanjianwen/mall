@@ -82,9 +82,7 @@
     private captcha: any;
     private loading = true;
     private logintxt = '登录';
-    private cart = [{
-      a: 1,
-    }];
+    private cart = [];
     private mounted() {
       const __SELF = this;
       setTimeout(() => {
