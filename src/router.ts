@@ -26,6 +26,27 @@ export default new Router({
         title: '注册',
       },
       component: () => import('@/views/system/register/index.vue'),
+    }, {
+      path: '/category',
+      name: 'category',
+      meta: {
+        title: '分类',
+      },
+      component: () => import('@/views/mall/category/index.vue'),
+    }, {
+      path: '/cart',
+      name: 'cart',
+      meta: {
+        title: '购物车',
+      },
+      component: () => import('@/views/mall/cart/index.vue'),
+    }, {
+      path: '/user',
+      name: 'user',
+      meta: {
+        title: '用户',
+      },
+      component: () => import('@/views/mall/user/index.vue'),
     },
   ],
 });
