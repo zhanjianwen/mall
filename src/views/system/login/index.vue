@@ -68,9 +68,9 @@
       userName: 'test',
       userPwd: 'test',
       challenge: '',
-      seccode: 'e2e29827e20bb27586f6eb10a1f651aa|jordan',
+      seccode: '',
       statusKey: '',
-      validate: 'e2e29827e20bb27586f6eb10a1f651aa',
+      validate: '',
       autoLogin: false,
     };
     private captcha: any;
