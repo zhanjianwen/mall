@@ -19,6 +19,7 @@ declare module 'vue/types/vue' {
     // $_: any;
   }
 }
+
 declare global {
   interface Window {
     $moment: any;

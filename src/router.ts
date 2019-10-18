@@ -48,5 +48,13 @@ export default new Router({
       },
       component: () => import('@/views/mall/user/index.vue'),
     },
+    {
+      path: '/demo',
+      name: 'demo',
+      meta: {
+        title: 'demo',
+      },
+      component: () => import('@/views/mall/test.vue'),
+    },
   ],
 });
