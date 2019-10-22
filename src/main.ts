@@ -7,6 +7,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import 'amfe-flexible';
 import Vant from 'vant';
+import 'vant/lib/index.css';
 // import 'vant/lib/vant-css/index.css';
 Vue.use(Vant);
 // import { Toast, Notify } from 'vant';

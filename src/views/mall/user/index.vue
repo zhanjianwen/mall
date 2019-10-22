@@ -1,6 +1,11 @@
 <template>
-  <div class="user">
-    user
+  <div class="page">
+    <buttom-menu></buttom-menu>
+    <div class="page-content">
+      <div class="user">
+        user
+      </div> 
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -8,10 +13,14 @@
     Component,
     Vue,
   } from 'vue-property-decorator';
-
+  import buttomMenu from '@/components/buttom-menu.vue';
   @Component({
     name: 'user',
-    components: {},
+    components: {
+      buttomMenu,
+    },
   })
-  export default class extends Vue {}
+  export default class extends Vue {
+
+  }
 </script>

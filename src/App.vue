@@ -1,12 +1,12 @@
 <template>
   <div id="app" style="font-size: 16px;">
-      
+
     <router-view />
   </div>
 </template>
 <style lang="stylus">
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: 'Helvetica Neue','Tahoma','Arial','PingFangSC-Regular','Hiragino Sans GB','Microsoft Yahei','sans-serif';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -73,7 +73,17 @@
     top: 100%;
     margin-top: -50px;
     width: 100%;
-    height:50px;
+    height: 50px;
+  }
+
+  .divider_line {
+    margin: 0 auto;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
   }
 </style>
 
