@@ -1,5 +1,6 @@
 <template>
   <div id="app" style="font-size: 16px;">
+      
     <router-view />
   </div>
 </template>
@@ -81,5 +82,13 @@
     Component,
     Vue,
   } from 'vue-property-decorator';
+  import {
+    Icon,
+  } from 'vant';
+  @Component({
+    components: {
+      [Icon.name]: Icon,
+    },
+  })
   export default class extends Vue {}
 </script>

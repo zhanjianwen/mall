@@ -1,6 +1,6 @@
 <template>
-  <div class="test">123
-    <cropper></cropper>
+  <div class="test">
+      <van-icon name="pending-payment" />
   </div>
 </template>
 <script lang="ts">
@@ -9,15 +9,5 @@
     Component,
     Vue,
   } from 'vue-property-decorator';
-  import {
-    Divider,
-  } from 'vant';
-  import cropper from '@/components/cropper.vue';
-  @Component({
-    name: 'test',
-    components: {
-      cropper,
-    },
-  })
   export default class extends Vue { }
 </script>
