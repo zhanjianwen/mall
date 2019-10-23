@@ -1,14 +1,19 @@
 <template>
   <div id="app" style="font-size: 16px;">
-
     <router-view />
   </div>
 </template>
 <style lang="stylus">
   #app {
-    font-family: 'Helvetica Neue','Tahoma','Arial','PingFangSC-Regular','Hiragino Sans GB','Microsoft Yahei','sans-serif';
+    font-family: 'Helvetica Neue', 'Tahoma', 'Arial', 'PingFangSC-Regular', 'Hiragino Sans GB', 'Microsoft Yahei', 'sans-serif';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    background-repeat: no-repeat;
+    padding: 0;
+    margin: 0;
   }
 
   #nprogress .bar {
