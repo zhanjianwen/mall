@@ -90,6 +90,11 @@
     width: 100%;
     overflow: hidden;
   }
+  .ellipsis{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 </style>
 
 <script lang="ts">
