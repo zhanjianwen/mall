@@ -8,7 +8,7 @@
     <buttom-menu></buttom-menu>
     <div class="page-content">
       <div class="category-types">
-        <div class="menu-wrapper" ref="menuWrapper">
+        <div class="menu-wrapper" ref="menuWrapper">  
           <ul>
             <li v-for="(item, index) in goods" class="menu-item" :key="index"
               :class="{'current':currentIndex === index}" @click="selectMenu(index, $event)">
@@ -220,7 +220,7 @@
     name: 'category',
     components: {
       buttomMenu,
-    }
+    },
   })
   export default class extends Vue {
     private goods = [];
@@ -235,8 +235,8 @@
     }
     get currentIndex() {
       for (let i = 0; i < this.listHeight.length; i++) {
-        let height = this.listHeight[i];
-        let height2 = this.listHeight[i + 1];
+        const height = this.listHeight[i];
+        const height2 = this.listHeight[i + 1];
         if (!height2 || (this.scrolly >= height && this.scrolly < height2)) {
           return i;
         }
@@ -244,7 +244,7 @@
       return 0;
     }
     get selectFoods() {
-      let foods: any = []
+      const foods: any = []
       this.goods.forEach((good: any) => {
         good.foods.forEach((food: any) => {
           if (food.count) {
@@ -261,7 +261,7 @@
         this._calculateHeight();
       })
     };
-    private filterCategoryList(datas) {
+    private filterCategoryList(datas: any) {
       return _.filter(datas, (o => {
         return o.w > 0
       }))
@@ -299,15 +299,15 @@
         return;
       }
       this.foodScroll.scrollToElement(el, 300);
-    };
-    // private selectFood(food, event) {
-    //   if (!event._constructed) {
-    //     // 去掉自带click事件的点击
-    //     return
-    //   }
-    //   this.selectedFood = food
-    //   this.$refs.food.show()
-    // }
+    }
+    private selectFood(food, event) {
+      if (!event._constructed) {
+        // 去掉自带click事件的点击
+        return
+      }
+      // this.selectedFood = food
+      // this.$refs.food.show()
+    }
     // private incrementTotal(target) {
     //   this.$refs.shopCart.drop(target)
     // }

@@ -103,9 +103,9 @@
   } from "vue-property-decorator"
   import buttomMenu from "@/components/buttom-menu.vue"
   @Component({
-    name: "user",
+    name: 'user',
     components: {
-      buttomMenu
+      buttomMenu,
     }
   })
   export default class extends Vue {
