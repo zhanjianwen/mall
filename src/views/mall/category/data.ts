@@ -1,4 +1,4 @@
-[
+ const datas:any= [
   {
     "category_name_en": "",
     "category_name": "新品",
@@ -4928,3 +4928,5 @@
     "is_default": false
   }
 ]
+
+export default datas

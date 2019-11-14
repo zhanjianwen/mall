@@ -215,7 +215,7 @@
   } from 'vue-property-decorator';
   import BScroll from 'better-scroll';
   import buttomMenu from '@/components/buttom-menu.vue';
-  import datas from './data.json';
+  import datas from './data';
   @Component({
     name: 'category',
     components: {
@@ -262,7 +262,7 @@
       })
     };
     private filterCategoryList(datas: any) {
-      return _.filter(datas, (o => {
+      return (window._).filter(datas, ((o:any) => {
         return o.w > 0
       }))
     }
@@ -300,7 +300,7 @@
       }
       this.foodScroll.scrollToElement(el, 300);
     }
-    private selectFood(food, event) {
+    private selectFood(food:any, event:any) {
       if (!event._constructed) {
         // 去掉自带click事件的点击
         return

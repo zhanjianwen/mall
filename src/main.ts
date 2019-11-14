@@ -27,12 +27,12 @@ declare module 'vue/types/vue' {
 declare global {
   interface Window {
     $moment: any;
-    $_: any;
+    _: any;
   }
 }
 Vue.prototype.$api = api;
 window.$moment = moment;
-window.$_ = _;
+window._ = _;
 Vue.config.productionTip = false;
 new Vue({
   router,
