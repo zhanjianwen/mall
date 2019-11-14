@@ -14,7 +14,7 @@
       <van-tabbar-item to="/user" icon="user-o">
         我的
       </van-tabbar-item>
-    </van-tabbar>˝
+    </van-tabbar>
   </div>
 </template>
 <script lang="ts">
