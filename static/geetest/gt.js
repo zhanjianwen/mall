@@ -213,6 +213,7 @@
     });
   };
   var throwError = function (errorType, config) {
+    console.log(errorType)
     var errors = {
       networkError: '网络错误'
     };

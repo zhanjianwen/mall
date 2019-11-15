@@ -7,6 +7,7 @@ module.exports = {
       postcss: {}
     }
   },
+  assetsDir: 'static',
   configureWebpack: config => {},
   parallel: false,
   outputDir: 'dist',
