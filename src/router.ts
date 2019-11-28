@@ -56,5 +56,13 @@ export default new Router({
       },
       component: () => import('@/views/mall/test.vue'),
     },
+    {
+      path: '/snow',
+      name: 'snow',
+      meta: {
+        title: 'snow',
+      },
+      component: () => import('@/views/test/snow.vue'),
+    },
   ],
 });

@@ -75,6 +75,7 @@
                 </van-grid-item>
               </van-grid>
             </div>
+            
             <div class="divider_line"
               style="height:1px; border-bottom: 1px solid rgb(206, 206, 206); background-color: rgb(206, 206, 206);">
             </div>
